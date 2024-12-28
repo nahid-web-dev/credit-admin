@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* active for navbar */
+
+.active {
+  background-color: #0284c7;
+  font-size: 1.5rem;
+}
+
+/* Hide Scrollbar */
+
+/* Hide scrollbar but keep scrolling functional */
+.hide-scrollbar {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+/* Signin and Password Page */
+
+.for-input input {
+  padding: 0 20px;
+  outline: none;
+}
+
+.for-input input:focus {
+  border: 2px solid rgb(111, 111, 247);
+}
+
+.for-input input::placeholder {
+  color: rgb(70, 69, 69);
+}
+
+/* .for-input::after {
+  display: block;
+  content: "Email or phone";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgb(70, 69, 69);
+} */
+
+.pass-input {
+  width: 100%;
+  min-width: 280px;
+}
+
+
+
+@media (max-width: 960px) {
+  .main-box {
+    width: 100% !important;
+    border-radius: 0;
+  }
+
+  .app-container {
+    background-color: white;
+    min-height: 100vh;
+  }
+
+  .pass-input {
+    width: auto !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .main-box .first-part {
+    flex-direction: column !important;
+    justify-content: center;
+    gap: 0px;
+    /* background-color: pink; */
+  }
+
+  .main-box {
+    padding: 20px;
+  }
+
+  .main-box form .part-two {
+    padding: 0;
+  }
+
+  .pass-input,
+  .mail-input {
+    width: 100% !important;
+  }
+
+  .login-part {
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .footer {
+    flex-direction: column;
+    width: 100%;
+    justify-content: start !important;
+    gap: 40px;
+  }
+
+  .footer ul {
+    gap: 40px;
+    padding-bottom: 20px;
+  }
+}
+
+/* Pass */
+
+.hide-box {
+  visibility: hidden;
+}
