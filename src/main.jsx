@@ -13,6 +13,7 @@ import Mega from './pages/Mega.jsx'
 import Tryst from './pages/Tryst.jsx'
 import EroticMonkey from './pages/EroticMonkey.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import AdultSearch from './pages/AdultSearch.jsx'
 
 
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/eroticmonkey',
             element: <EroticMonkey />
+          },
+          {
+            path: '/dashboard/adultsearch',
+            element: <AdultSearch />
           },
         ]
       },

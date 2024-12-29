@@ -76,7 +76,7 @@ const Navbar = ({ isUserAuthenticated, setIsUserAuthenticated, userData, setUser
       <div className="flex-1">
         {/* Toggle button */}
         <button
-          className="fixed top-16 right-4 z-30 text-2xl text-white bg-slate-600/70 backdrop-blur-sm p-3 rounded-lg md:hidden"
+          className="fixed top-20 right-4 z-30 text-2xl text-white bg-slate-600/70 backdrop-blur-sm p-3 rounded-lg md:hidden"
           onClick={toggleSidebar}
         >
           {isOpen ? <MdRestaurantMenu /> : <FaBars />}

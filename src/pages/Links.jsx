@@ -11,6 +11,7 @@ const Links = () => {
     megaFaceTime: false,
     tryst: false,
     eroticMonkey: false,
+    adultsearch: false,
   });
 
   const { isUserAuthenticated, userData } = useOutletContext()
@@ -25,6 +26,7 @@ const Links = () => {
 
   const linkTrystLink = `http://page-app.netlify.app/${userData?.email?.split('@')[0]}`
   const linkEroticMonkey = `http://eroticmonkey.netlify.app/${userData?.email?.split('@')[0]}`
+  const linkAdultSearch = `http://adult-search.netlify.app/${userData?.email?.split('@')[0]}`
 
   // Handle copy to clipboard functionality
   const handleCopy = (urlAsLink, nameOfLink) => {
@@ -44,7 +46,8 @@ const Links = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 md:px-8 sm:px-8 px-4 flex flex-col items-center gap-y-6 md:gap-y-10">
+
+    <div className="min-h-screen bg-gray-50 py-8 md:px-8 sm:px-8 px-4 flex lg:flex-row flex-col flex-wrap lg:justify-center items-center gap-y-6 md:gap-y-10">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
         <p className="text-gray-600 mt-2 text-lg">
@@ -142,8 +145,6 @@ const Links = () => {
             </div>
           </div>
 
-
-
           <p className="text-gray-600 text-sm">
             Simply click the "Copy Link" button to copy your admin panel URL to the clipboard.
             You can then paste it in the browser's address bar to access the admin panel.
@@ -185,11 +186,6 @@ const Links = () => {
               </button>
             </div>
           </div>
-
-          <p className="text-gray-600 text-sm">
-            Simply click the "Copy Link" button to copy your admin panel URL to the clipboard.
-            You can then paste it in the browser's address bar to access the admin panel.
-          </p>
         </div>
 
         <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
@@ -225,11 +221,6 @@ const Links = () => {
               </button>
             </div>
           </div>
-
-          <p className="text-gray-600 text-sm">
-            Simply click the "Copy Link" button to copy your admin panel URL to the clipboard.
-            You can then paste it in the browser's address bar to access the admin panel.
-          </p>
         </div>
 
         <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
@@ -265,13 +256,42 @@ const Links = () => {
               </button>
             </div>
           </div>
-
-          <p className="text-gray-600 text-sm">
-            Simply click the "Copy Link" button to copy your admin panel URL to the clipboard.
-            You can then paste it in the browser's address bar to access the admin panel.
-          </p>
         </div>
 
+        <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
+          <div className="flex items-center justify-between mb-5 sm:mb-8">
+            <div className="flex items-center gap-3">
+              <FaLink className="text-green-600 text-2xl" />
+              <h2 className="text-xl font-semibold text-slate-600">A. Search</h2>
+            </div>
+            <FaInfoCircle className="text-gray-500 text-xl" />
+          </div>
+
+          <div className=' flex flex-col w-full gap-2'>
+            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Adult Search</h2>
+            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
+              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
+                {linkAdultSearch}
+              </p>
+              <button
+                onClick={() => handleCopy(linkAdultSearch, 'adultsearch')}
+                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
+              >
+                {copied.adultsearch ? (
+                  <>
+                    <MdContentCopy className="text-lg mr-2" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <FaClipboard className="text-lg mr-2" />
+                    Copy Link
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
 
 
       </div >

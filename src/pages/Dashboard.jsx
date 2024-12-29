@@ -4,12 +4,12 @@ import Header from '../components/Header'
 
 const Dashboard = () => {
 
-  const { myDataItems, myMegaItems, myTrystItems, myEroticMonkeyItems, isUserAuthenticated, userData, } = useOutletContext()
+  const { isUserAuthenticated, userData, myDataItems, myMegaItems, myTrystItems, myEroticMonkeyItems, myAdultSearchItems } = useOutletContext()
 
   return (
     <div>
       <Header />
-      <Outlet context={{ isUserAuthenticated, userData, myDataItems, myMegaItems, myTrystItems, myEroticMonkeyItems, }} />
+      <Outlet context={{ isUserAuthenticated, userData, myDataItems, myMegaItems, myTrystItems, myEroticMonkeyItems, myAdultSearchItems }} />
     </div>
   )
 }

