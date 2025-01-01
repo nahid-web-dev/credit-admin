@@ -1,16 +1,19 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser, FaCalendarAlt, FaUserShield } from 'react-icons/fa';
 import { db } from '../config/firebase';
 import { useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { DateTime } from 'luxon';
+import { RoleCodesContext } from '../store/RoleCodes';
 
 const Users = () => {
 
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
   const managerRef = useRef(null)
+
+  const { ADMIN_ROLE_CODE, MANAGER_ROLE_CODE, USER_ROLE_CODE } = useContext(RoleCodesContext)
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,7 +28,7 @@ const Users = () => {
 
   const handleAddUser = async (e) => {
 
-    if (userData?.role == 'user') {
+    if (userData?.role == USER_ROLE_CODE) {
       toast.error('Only Admins can create users!')
       return
     }
@@ -46,7 +49,7 @@ const Users = () => {
       const docRef = await addDoc(collection(db, 'users'), {
         email: emailRef?.current?.value,
         password: passwordRef?.current?.value,
-        role: managerRef?.current?.checked ? 'manager' : 'user',
+        role: managerRef?.current?.checked ? MANAGER_ROLE_CODE : USER_ROLE_CODE,
         createdBy: userData?.email,
         createdAt: Date.now()
       })
@@ -61,14 +64,14 @@ const Users = () => {
     let unsubscribe;
     try {
       const usersRef = collection(db, 'users')
-      const q = userData?.role == 'admin' ? usersRef : query(usersRef, where('createdBy', '==', userData?.email));
+      const q = userData?.role == ADMIN_ROLE_CODE ? usersRef : query(usersRef, where('createdBy', '==', userData?.email));
       unsubscribe = onSnapshot(q, (snapshot) => {
         const updatedUsers = snapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }))
         const sortedUsersList = updatedUsers.sort((a, b) => b?.createdAt - a?.createdAt)
-        const filteredUsersList = sortedUsersList.filter((user) => user.role != 'admin')
+        const filteredUsersList = sortedUsersList.filter((user) => user.role != ADMIN_ROLE_CODE)
         setUsersList(filteredUsersList)
       })
     } catch (error) {
@@ -83,7 +86,7 @@ const Users = () => {
 
 
   const handleRemove = async (id) => {
-    if (userData?.role == 'user') {
+    if (userData?.role == USER_ROLE_CODE) {
       toast.error('Only Admins can remove users!')
       return
     }
@@ -158,7 +161,7 @@ const Users = () => {
 
           {/* Checkbox */}
           {
-            userData?.role == 'admin' && <div className="flex items-center space-x-2">
+            userData?.role == ADMIN_ROLE_CODE && <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 id="agreeToTerms"
@@ -208,7 +211,7 @@ const Users = () => {
               </div>
 
               {
-                userData?.role == 'admin' && <div className="flex items-center space-x-2">
+                userData?.role == ADMIN_ROLE_CODE && <div className="flex items-center space-x-2">
                   <FaUser className="text-green-500" />
                   <span className="text-gray-600 ">Owner : {item.createdBy}</span>
                 </div>

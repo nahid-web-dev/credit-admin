@@ -31,7 +31,7 @@ const Login = () => {
       if (querySnapshot.empty) {
         toast.info("Invalid email or password");
       } else {
-        const userInfo = querySnapshot.docs[0].data();
+        const { password, ...userInfo } = querySnapshot.docs[0].data();
 
         localStorage.setItem('userData', JSON.stringify(userInfo))
         localStorage.setItem('isUserAuthenticated', JSON.stringify(true))

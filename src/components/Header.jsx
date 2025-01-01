@@ -16,7 +16,7 @@ const Header = () => {
       <nav className=" flex gap-x-4 md:gap-x-8 px-6 hide-scrollbar w-full overflow-scroll">
         <Link
           to="/dashboard"
-          className={`text-lg pb-1 sm:text-xl flex items-center px-1 border-b-2 transition-all hover:text-blue-400 ${pathname == '/dashboard' || pathname == '/' ? 'border-blue-500' : 'border-transparent'} `}
+          className={`text-lg pb-1 sm:text-xl flex items-center px-1 border-b-2 transition-all hover:text-blue-400 ${pathname == '/dashboard' || pathname == '/dashboard/' || pathname == '/' ? 'border-blue-500' : 'border-transparent'} `}
         >
           <FaHome className="mr-2 text-blue-400" /> Gmail
         </Link>

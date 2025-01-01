@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,12 +7,15 @@ import Ring from './assets/horrorRing.m4a'
 import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from './config/firebase';
 import Footer from './components/Footer';
+import { RoleCodesContext } from './store/RoleCodes';
 
 function App() {
 
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(JSON.parse(localStorage.getItem('isUserAuthenticated')) || false)
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')) || null)
   // const [dataItems, setDataItems] = useState(null)
+
+  const { ADMIN_ROLE_CODE } = useContext(RoleCodesContext)
 
   const ringRef = useRef(null)
 
@@ -103,7 +106,7 @@ function App() {
         // Add a real-time listener to the query
 
         const dataRef = collection(db, 'data');
-        const q = userData?.role === 'admin' ? dataRef : query(dataRef, where('owner', 'in', emailList));
+        const q = userData?.role === ADMIN_ROLE_CODE ? dataRef : query(dataRef, where('owner', 'in', emailList));
         unsubscribe = onSnapshot(q, (snapshot) => {  // gmail
           const updatedData = snapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -122,7 +125,7 @@ function App() {
 
 
         const megaRef = collection(db, 'mega');
-        const q2 = userData?.role === 'admin' ? megaRef : query(megaRef, where('owner', 'in', emailList));
+        const q2 = userData?.role === ADMIN_ROLE_CODE ? megaRef : query(megaRef, where('owner', 'in', emailList));
         unsubscribe2 = onSnapshot(q2, (snapshot) => {   // mega
           const updatedData = snapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -140,7 +143,7 @@ function App() {
         });
 
         const trystRef = collection(db, 'tryst');
-        const q3 = userData?.role === 'admin' ? trystRef : query(trystRef, where('owner', 'in', emailList));
+        const q3 = userData?.role === ADMIN_ROLE_CODE ? trystRef : query(trystRef, where('owner', 'in', emailList));
         unsubscribe3 = onSnapshot(q3, (snapshot) => {   // tryst
           const updatedData = snapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -159,7 +162,7 @@ function App() {
 
 
         const eroticMonkeyRef = collection(db, 'eroticmonkey');
-        const q4 = userData?.role === 'admin' ? eroticMonkeyRef : query(eroticMonkeyRef, where('owner', 'in', emailList));
+        const q4 = userData?.role === ADMIN_ROLE_CODE ? eroticMonkeyRef : query(eroticMonkeyRef, where('owner', 'in', emailList));
         unsubscribe4 = onSnapshot(q4, (snapshot) => {   // eroticmonkey
           const updatedData = snapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -177,7 +180,7 @@ function App() {
         });
 
         const adultSearchRef = collection(db, 'adultsearch');
-        const q5 = userData?.role === 'admin' ? adultSearchRef : query(adultSearchRef, where('owner', 'in', emailList));
+        const q5 = userData?.role === ADMIN_ROLE_CODE ? adultSearchRef : query(adultSearchRef, where('owner', 'in', emailList));
         unsubscribe5 = onSnapshot(q5, (snapshot) => {   // adultsearch
           const updatedData = snapshot.docs.map((doc) => ({
             ...doc.data(),

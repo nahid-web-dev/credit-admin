@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaBars, FaHome, FaUser, FaCog, FaSignOutAlt, FaLink } from 'react-icons/fa';
 import { MdDashboard, MdRestaurantMenu } from 'react-icons/md';
 import { NavLink, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { RoleCodesContext } from '../store/RoleCodes';
 
 const Navbar = ({ isUserAuthenticated, setIsUserAuthenticated, userData, setUserData }) => {
+
+  const { ADMIN_ROLE_CODE, MANAGER_ROLE_CODE } = useContext(RoleCodesContext)
+
   const [isOpen, setIsOpen] = useState(true);
 
   const navigate = useNavigate()
@@ -56,7 +60,7 @@ const Navbar = ({ isUserAuthenticated, setIsUserAuthenticated, userData, setUser
             </NavLink>
 
             {
-              userData?.role == 'admin' || userData?.role == 'manager' ? <NavLink to='/users' className="px-4 py-2 hover:bg-sky-600 transition-all flex items-center gap-3 cursor-pointer">
+              userData?.role == ADMIN_ROLE_CODE || userData?.role == MANAGER_ROLE_CODE ? <NavLink to='/users' className="px-4 py-2 hover:bg-sky-600 transition-all flex items-center gap-3 cursor-pointer">
                 <FaUser className="text-xl" />
                 <span>Users</span>
               </NavLink>

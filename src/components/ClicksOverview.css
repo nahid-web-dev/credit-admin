@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .border-animation-blue {
+    position: relative;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    animation: running-border-blue 3s linear infinite;
+  }
+
+  .border-animation-green {
+    position: relative;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    animation: running-border-green 3s linear infinite;
+  }
+
+  .border-animation-yellow {
+    position: relative;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    animation: running-border-yellow 5s linear infinite;
+  }
+
+  @keyframes running-border-blue {
+    0% {
+      border-color: rgba(59, 130, 246, 1); /* Brighter Blue */
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+    }
+    50% {
+      border-color: rgba(234, 179, 8, 1); /* Brighter Yellow */
+    }
+    100% {
+      border-color: rgba(34, 197, 94, 1); /* Brighter Green */
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    }
+  }
+  
+  @keyframes running-border-green {
+    0% {
+      border-color: rgba(34, 197, 94, 1); /* Brighter Green */
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    }
+    50% {
+      border-color: rgba(59, 130, 246, 1); /* Brighter Blue */
+    }
+    100% {
+      border-color: rgba(234, 179, 8, 1); /* Brighter Yellow */
+      box-shadow: 0 0 8px rgba(234, 179, 8, 0.8);
+    }
+  }
+  
+  @keyframes running-border-yellow {
+    0% {
+      border-color: rgba(234, 179, 8, 1); /* Brighter Yellow */
+      box-shadow: 0 0 8px rgba(234, 179, 8, 0.8);
+    }
+    50% {
+      border-color: rgba(34, 197, 94, 1); /* Brighter Green */
+    }
+    100% {
+      border-color: rgba(59, 130, 246, 1); /* Brighter Blue */
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.8);
+    }
+  }
+}

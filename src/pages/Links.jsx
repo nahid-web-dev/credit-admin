@@ -146,8 +146,8 @@ const Links = () => {
           </div>
 
           <p className="text-gray-600 text-sm">
-            Simply click the "Copy Link" button to copy your admin panel URL to the clipboard.
-            You can then paste it in the browser's address bar to access the admin panel.
+            Simply click the "Copy Link" button to copy your link URL to the clipboard.
+            You can then paste it in the browser's address bar or send inside a mail.
           </p>
         </div>
 
