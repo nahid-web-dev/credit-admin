@@ -77,7 +77,7 @@ function App() {
       });
 
     } catch (err) {
-      console.error('Error accessing media devices:', err?.message);
+      toast.error('Error accessing media devices:', err?.message);
     }
   }
 
@@ -96,7 +96,6 @@ function App() {
         await accessMedia();
         const emailList = await usersFunction();
 
-        console.log(emailList)
 
         if (!emailList) {
           return;

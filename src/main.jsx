@@ -10,6 +10,7 @@ import Links from './pages/Links.jsx'
 import Loader from './components/Loader.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import RoleCodesProvider from './store/RoleCodes.jsx'
+import Mails from './pages/Mails.jsx'
 
 
 const router = createBrowserRouter([
@@ -20,17 +21,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Dashboard />,
-        // children: [
-        //   {
-        //     path: '/',
-        //     element: <Home />
-        //   }
-        // ]
       },
-      // {
-      //   path: '/home',
-      //   element: <Home />
-      // },
       {
         path: '/dashboard',
         element: <Dashboard />
@@ -38,31 +29,6 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/:pageName',
         element: <Dashboard />,
-        // children: [
-        //   {
-        //     path
-        //   },
-        //   {
-        //     path: '/dashboard/',
-        //     element: <Home />
-        //   },
-        //   {
-        //     path: '/dashboard/mega',
-        //     element: <Mega />
-        //   },
-        //   {
-        //     path: '/dashboard/tryst',
-        //     element: <Tryst />
-        //   },
-        //   {
-        //     path: '/dashboard/eroticmonkey',
-        //     element: <EroticMonkey />
-        //   },
-        //   {
-        //     path: '/dashboard/adultsearch',
-        //     element: <AdultSearch />
-        //   },
-        // ]
       },
       {
         path: '/users',
@@ -73,9 +39,13 @@ const router = createBrowserRouter([
         element: <Links />
       },
       {
-        path: '/loader',
-        element: <Loader />
+        path: '/mails',
+        element: <Mails />
       },
+      // {
+      //   path: '/loader',
+      //   element: <Loader />
+      // },
       {
         path: '/login',
         element: <Login />

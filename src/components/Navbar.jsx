@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FaBars, FaHome, FaUser, FaCog, FaSignOutAlt, FaLink } from 'react-icons/fa';
+import { FaBars, FaHome, FaUser, FaCog, FaSignOutAlt, FaLink, FaMailBulk, FaMailchimp } from 'react-icons/fa';
 import { MdDashboard, MdRestaurantMenu } from 'react-icons/md';
 import { NavLink, useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { RoleCodesContext } from '../store/RoleCodes';
+import { BiMailSend } from 'react-icons/bi';
+import { BsMailbox } from 'react-icons/bs';
+import { IoMail } from 'react-icons/io5';
 
 const Navbar = ({ isUserAuthenticated, setIsUserAuthenticated, userData, setUserData }) => {
 
@@ -66,6 +69,11 @@ const Navbar = ({ isUserAuthenticated, setIsUserAuthenticated, userData, setUser
               </NavLink>
                 : null
             }
+
+            <NavLink to='/mails' className="px-4 py-2 hover:bg-sky-600 transition-all flex items-center gap-3 cursor-pointer">
+              <IoMail className="text-xl" />
+              <span>Mails</span>
+            </NavLink>
 
           </div>
 
