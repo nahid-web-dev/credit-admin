@@ -17,7 +17,8 @@ const Mails = () => {
 
   const emailsRef = useRef(null)
 
-  const mailServerUrl = 'https://mailer-app-j8m2.onrender.com'
+  // const mailServerUrl = 'https://mailer-app-j8m2.onrender.com'
+  const mailServerUrl = 'http://localhost:4500'
 
   const [emailsSelected, setEmailsSelected] = useState(0)
 

