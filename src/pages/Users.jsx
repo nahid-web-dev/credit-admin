@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser, FaCalendarAlt, FaUserShield, FaUserPlus, FaUsers, FaInfoCircle, FaTrash, FaUserCog } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser, FaCalendarAlt, FaUserShield, FaUserPlus, FaUsers, FaInfoCircle, FaTrash, FaUserCog, FaUserEdit } from 'react-icons/fa';
 import { db } from '../config/firebase';
 import { useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Users = () => {
   const emailRef = useRef(null)
+  const usernameRef = useRef(null)
   const passwordRef = useRef(null)
   const managerRef = useRef(null)
 
@@ -47,6 +48,7 @@ const Users = () => {
 
       const docRef = await addDoc(collection(db, 'users'), {
         email: emailRef?.current?.value,
+        username: usernameRef?.current?.value,
         password: passwordRef?.current?.value,
         role: managerRef?.current?.checked ? MANAGER_ROLE_CODE : USER_ROLE_CODE,
         createdBy: userData?.email,
@@ -181,6 +183,24 @@ const Users = () => {
 
         <form className="space-y-4" onSubmit={handleAddUser}>
           {/* Email Field */}
+
+
+          <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400 }}>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              User Name
+            </label>
+            <div className="flex items-center border border-gray-300 rounded-lg p-2">
+              <FaEnvelope className="text-gray-400 mr-2" />
+              <input
+                type="text"
+                ref={usernameRef}
+                placeholder="Enter Username"
+                className="flex-1 outline-none bg-transparent text-gray-700"
+                required
+              />
+            </div>
+          </motion.div>
+
           <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400 }}>
             <label className="block text-sm font-medium text-gray-600 mb-1">
               Email Address
@@ -314,6 +334,15 @@ const Users = () => {
                     <FaEnvelope className="text-blue-500" />
                     <span className="text-gray-700 font-medium break-all">{item.email}</span>
                   </div>
+
+                  {
+                    item?.username && (
+                      <div className="flex items-center space-x-2">
+                        <FaUserEdit className="text-orange-500" />
+                        <span className="text-gray-700 font-medium break-all">{item?.username}</span>
+                      </div>
+                    )
+                  }
 
                   {userData?.role == ADMIN_ROLE_CODE && (
                     <div className="flex items-center space-x-2">
