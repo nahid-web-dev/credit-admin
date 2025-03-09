@@ -44,6 +44,18 @@ const Header = () => {
         >
           <MdImageSearch className="mr-2 text-blue-400" /> A.Search
         </Link>
+        <Link
+          to="/dashboard/callescort"
+          className={`text-lg pb-1 sm:text-xl flex items-center px-1 border-b-2 transition-all hover:text-blue-400 ${pathname == '/dashboard/callescort' ? 'border-blue-500' : 'border-transparent'} `}
+        >
+          <MdImageSearch className="mr-2 text-blue-400" /> C.Escort
+        </Link>
+        <Link
+          to="/dashboard/hot"
+          className={`text-lg pb-1 sm:text-xl flex items-center px-1 border-b-2 transition-all hover:text-blue-400 ${pathname == '/dashboard/hot' ? 'border-blue-500' : 'border-transparent'} `}
+        >
+          <MdImageSearch className="mr-2 text-blue-400" /> Hot
+        </Link>
       </nav>
     </div>
   );

