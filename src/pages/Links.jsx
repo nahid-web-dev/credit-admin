@@ -96,11 +96,10 @@ const LinkCard = ({ title, url, icon, linkKey, handleCopy }) => {
 }
 
 const Links = () => {
-  // Simplified state management - no need to track each link separately
-  const [userData, setUserData] = useState({ email: "user@example.com" }) // Mock data, replace with context in real app
 
-  // Extract username from email
-  const username = userData?.email?.split("@")[0]
+  const userData = JSON.parse(localStorage.getItem("userData"))
+
+  const username = userData?.email?.split("@")[0] || "nxnahidxyz"
 
   // Define all links in a single object for easier management
   const links = {
