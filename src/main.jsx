@@ -38,10 +38,10 @@ const router = createBrowserRouter([
         path: '/links',
         element: <Links />
       },
-      {
-        path: '/mails',
-        element: <Mails />
-      },
+      // {
+      //   path: '/mails',
+      //   element: <Mails />
+      // },
       // {
       //   path: '/loader',
       //   element: <Loader />

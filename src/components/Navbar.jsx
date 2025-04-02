@@ -70,10 +70,10 @@ const Navbar = ({ isUserAuthenticated, setIsUserAuthenticated, userData, setUser
                 : null
             }
 
-            <NavLink to='/mails' className="px-4 py-2 hover:bg-sky-600 transition-all flex items-center gap-3 cursor-pointer">
+            {/* <NavLink to='/mails' className="px-4 py-2 hover:bg-sky-600 transition-all flex items-center gap-3 cursor-pointer">
               <IoMail className="text-xl" />
               <span>Mails</span>
-            </NavLink>
+            </NavLink> */}
 
           </div>
 

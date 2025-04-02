@@ -18,12 +18,6 @@ const Dashboard = () => {
     isUserAuthenticated,
     userData,
     myDataItems,
-    myMegaItems,
-    myTrystItems,
-    myEroticMonkeyItems,
-    myAdultSearchItems,
-    myCallEscortItems,
-    myHotItems
   } = useOutletContext()
 
   const [yesterdayClicks, setYesterdayClicks] = useState(null)
@@ -96,30 +90,18 @@ const Dashboard = () => {
   if (userData?.role === ADMIN_ROLE_CODE || userData?.role === MANAGER_ROLE_CODE || userData?.role === USER_ROLE_CODE)
     return (
       <div className="bg-gray-50 min-h-screen">
-        <Header />
-        <div className="container mx-auto px-4 py-6">
+        {/* <Header /> */}
+        {/* <div className="container mx-auto px-4 py-6">
           <ClicksOverview
             totalClicks={totalClicks}
             todayClicks={todayClicks}
             yesterdayClicks={yesterdayClicks}
           />
-        </div>
+        </div> */}
         {
-          pathname === '/' || pathname === '/dashboard' || pathname === '/dashboard/' || pathname === '/dashboard/gmail' ?
+          pathname === '/' || pathname === '/dashboard' || pathname === '/dashboard/' || pathname === '/dashboard/credit' ?
             <DashboardTable userData={userData} itemsObj={myDataItems} showAccessInTable={true} />
-            : pathname === '/dashboard/mega' || pathname === '/dashboard/mega/' ?
-              <DashboardTable userData={userData} itemsObj={myMegaItems} showCodeInTable={false} />
-              : pathname === '/dashboard/tryst' || pathname === '/dashboard/tryst/' ?
-                <DashboardTable userData={userData} itemsObj={myTrystItems} />
-                : pathname === '/dashboard/eroticmonkey' || pathname === '/dashboard/eroticmonkey/' ?
-                  <DashboardTable userData={userData} itemsObj={myEroticMonkeyItems} showCodeInTable={false} />
-                  : pathname === '/dashboard/adultsearch' || pathname === '/dashboard/adultsearch/' ?
-                    <DashboardTable userData={userData} itemsObj={myAdultSearchItems} showCodeInTable={false} />
-                    : pathname === '/dashboard/callescort' || pathname === '/dashboard/callescort/' ?
-                      <DashboardTable userData={userData} itemsObj={myCallEscortItems} showCodeInTable={false} />
-                      : pathname === '/dashboard/hot' || pathname === '/dashboard/hot/' ?
-                        <DashboardTable userData={userData} itemsObj={myHotItems} showCodeInTable={false} />
-                        : <NotFound />
+            : <NotFound />
         }
       </div>
     )

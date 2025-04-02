@@ -45,7 +45,7 @@ const signUpWithRole = async (email, password, role) => {
     const user = userCredential.user;
 
     // Add user data with role to Firestore
-    await setDoc(doc(db, "users", user.uid), {
+    await setDoc(doc(db, "credit_users", user.uid), {
       email: user.email,
       role: role, // Assign a role like "admin" or "user"
     });

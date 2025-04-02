@@ -36,7 +36,7 @@ const Users = () => {
 
     e.preventDefault()
     try {
-      const usersRef = collection(db, "users");
+      const usersRef = collection(db, "credit_users");
       const q = query(usersRef, where("email", "==", emailRef?.current?.value));
       const querySnapshot = await getDocs(q);
 
@@ -46,7 +46,7 @@ const Users = () => {
         return; // Exit function without creating a new user
       }
 
-      const docRef = await addDoc(collection(db, 'users'), {
+      const docRef = await addDoc(collection(db, 'credit_users'), {
         email: emailRef?.current?.value,
         username: usernameRef?.current?.value,
         password: passwordRef?.current?.value,
@@ -70,7 +70,7 @@ const Users = () => {
     setIsLoading(true);
 
     try {
-      const usersRef = collection(db, 'users')
+      const usersRef = collection(db, 'credit_users')
       const q = userData?.role == ADMIN_ROLE_CODE ? usersRef : query(usersRef, where('createdBy', '==', userData?.email));
       unsubscribe = onSnapshot(q, (snapshot) => {
         const updatedUsers = snapshot.docs.map((doc) => ({
@@ -114,7 +114,7 @@ const Users = () => {
       return
     }
     try {
-      const docRef = doc(db, 'users', id)
+      const docRef = doc(db, 'credit_users', id)
       await deleteDoc(docRef)
       toast.success('user removed!')
     } catch (error) {
